@@ -6,6 +6,7 @@
 package ec.edu.espol.proyectoedd;
 
 import CargaDatos.CreadorArboles;
+import CargaDatos.LecturaDatos;
 import TDA.BinaryTree;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class TestController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<String> preguntas = new ArrayList();
-        ArrayList<String> respuestas = new ArrayList();
+        ArrayList<String> preguntas2 = new ArrayList();
+        ArrayList<String> respuestas2 = new ArrayList();
         String primero = "¿Es este animal un mamífero?";
         String segundo= "¿Es este animal un carnívoro?";
         String tercero = "¿Se para este animal sobre cuatro patas?";
@@ -34,13 +35,15 @@ public class TestController implements Initializable {
         String dos = "Lechuza NO SI NO";
         String tres = "Venado SI NO SI";
         String cuatro = "Paloma NO NO NO";
-        preguntas.add(primero);
-        preguntas.add(segundo);
-        preguntas.add(tercero);
-        respuestas.add(uno);
-        respuestas.add(dos);
-        respuestas.add(tres);
-        respuestas.add(cuatro);
+        preguntas2.add(primero);
+        preguntas2.add(segundo);
+        preguntas2.add(tercero);
+        respuestas2.add(uno);
+        respuestas2.add(dos);
+        respuestas2.add(tres);
+        respuestas2.add(cuatro);
+        ArrayList<String> preguntas = LecturaDatos.leerPreguntas();
+        ArrayList<String> respuestas = LecturaDatos.leerRespuestas();
         BinaryTree<String> salida = CreadorArboles.creadorArboles(preguntas, respuestas);
         LinkedList<String> visualizacion = salida.breadthTraversal();
         for(String s:visualizacion){

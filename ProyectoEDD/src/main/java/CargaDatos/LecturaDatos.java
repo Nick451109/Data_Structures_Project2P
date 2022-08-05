@@ -21,7 +21,8 @@ public class LecturaDatos {
         try (BufferedReader bw = new BufferedReader(new FileReader("Preguntas.txt"))) {
             String linea;
             while ((linea = bw.readLine()) != null) {
-                preguntasTxt.add(linea.trim());
+                linea = linea.substring(1);
+                preguntasTxt.add(linea);
             }
         } catch (IOException ex) {
             System.out.println("Problema al leer preguntas del txt");
