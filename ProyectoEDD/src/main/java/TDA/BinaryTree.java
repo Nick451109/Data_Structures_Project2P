@@ -162,11 +162,11 @@ public class BinaryTree<E> {
         }
     }
     
-    public boolean recursiveSet(Stack<E> respuestas,E positivo,E negativo) {
+    public boolean recursiveSet(Queue<E> respuestas,E positivo,E negativo) {
         if (this.isEmpty()) {
             return false;
         } else {
-            E resptActual = respuestas.pop();
+            E resptActual = respuestas.poll();
             if (resptActual.equals(positivo)) {
                 this.getLeft().recursiveSet(respuestas,positivo,negativo);
             } else if (resptActual.equals(negativo)) {

@@ -21,10 +21,9 @@ public class CreadorArboles {
             return null;
         } else {
             Integer pos = 0;
-            Stack<String> QRespuestasIndv = new Stack<>();
-            ArrayList<Queue<String>> listaRespt = new ArrayList<>();
+            Stack<String> QRespuestasIndv1 = new Stack<>();
+            Queue<String> QRespuestasIndv = new LinkedList<>();
             BinaryTree<String> original = new BinaryTree(preg.get(pos));
-            BinaryTree<String> viajero;
             pos++;
             while (pos < preg.size()) {
                 original.setLeaves(preg.get(pos));
@@ -35,8 +34,9 @@ public class CreadorArboles {
                 QRespuestasIndv.clear();
                 String[] respuestasIndv = respuesta.split(" ");
                 for (String resptActual : respuestasIndv) {
-                    QRespuestasIndv.add(resptActual);
+                    QRespuestasIndv.offer(resptActual);
                 }
+                QRespuestasIndv.offer(QRespuestasIndv.poll());
                 boolean resultado = original.recursiveSet(QRespuestasIndv,"SI", "NO");
             }
             return original;
