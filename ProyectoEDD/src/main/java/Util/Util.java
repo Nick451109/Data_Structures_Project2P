@@ -11,6 +11,7 @@ package Util;
  */
 public class Util {
     public static void imprimirNameGame(){
+        System.out.print("********************JUEGO*******************\n");
         System.out.print("*******¿En que animal estas pensando?*******\n");
     }
     

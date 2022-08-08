@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class LecturaDatos {
 
     public static ArrayList<String> leerPreguntas() {
-        System.out.println("Se esta cargando la lista Fotos\n");
+    //    System.out.println("Se esta cargando la lista Fotos\n");
         ArrayList<String> preguntasTxt = new ArrayList<>();
         try (BufferedReader bw = new BufferedReader(new FileReader("Preguntas.txt"))) {
             String linea;
@@ -32,7 +32,7 @@ public class LecturaDatos {
     }
     
     public static ArrayList<String> leerRespuestas() {
-        System.out.println("Se esta cargando la lista Fotos\n");
+    //    System.out.println("Se esta cargando la lista Fotos\n");
         ArrayList<String> respuestasTxt = new ArrayList<>();
         try (BufferedReader bw = new BufferedReader(new FileReader("Respuestas.txt"))) {
             String linea;
