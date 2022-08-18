@@ -9,7 +9,7 @@ package TDA;
  * @author CAELOS JR 2018
  */
 class BinaryTreeNode<E> {
-    
+
     private E content;
     private BinaryTree<E> left;
     private BinaryTree<E> right;
@@ -49,6 +49,6 @@ class BinaryTreeNode<E> {
     public void setRight(BinaryTree<E> right) {
         this.right = right;
     }
-    
-    
+
+
 }

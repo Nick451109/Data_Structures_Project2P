@@ -26,6 +26,7 @@ public class Main {
         ArrayList<String> preguntas = LecturaDatos.leerPreguntas();
         ArrayList<String> respuestas = LecturaDatos.leerRespuestas();
         BinaryTree<String> arbolJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
+        //arbolJuego.printLeafNodes(arbolJuego);
         preguntar(arbolJuego, 3);
         jugarAgain();
      
@@ -80,5 +81,6 @@ public class Main {
             return validarRespuesta(obtenerRespuesta());
         }
     }
+
    
 }

@@ -161,22 +161,36 @@ public class BinaryTree<E> {
             this.getRight().setLeaves(contenido);
         }
     }
-    
-    public boolean recursiveSet(Queue<E> respuestas,E positivo,E negativo) {
+
+    public boolean recursiveSet(Queue<E> respuestas, E positivo, E negativo) {
         if (this.isEmpty()) {
             return false;
         } else {
             E resptActual = respuestas.poll();
             if (resptActual.equals(positivo)) {
-                this.getLeft().recursiveSet(respuestas,positivo,negativo);
+                this.getLeft().recursiveSet(respuestas, positivo, negativo);
             } else if (resptActual.equals(negativo)) {
-                this.getRight().recursiveSet(respuestas,positivo,negativo);
+                this.getRight().recursiveSet(respuestas, positivo, negativo);
             } else {
                 this.setRootContent(resptActual);
                 return true;
             }
             return true;
         }
+    }
+    
+    //debo pasarle el nodo exacto de la ultima pregunta que se haga para poder retornar los posibles animales
+    public static void printLeafNodes(BinaryTree<String> node) {
+        
+        // base case 
+        if (node == null) {
+            return;
+        }
+        if (node.getLeft() == null && node.getRight() == null) {
+            System.out.printf( node.getRootContent());
+        }
+        printLeafNodes(node.root.getLeft());
+        printLeafNodes(node.root.getRight());
     }
 
 }
