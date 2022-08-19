@@ -8,6 +8,7 @@ package TDA;
  *
  * @author CAELOS JR 2018
  */
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -62,6 +63,26 @@ public class BinaryTree<E> {
 
     public BinaryTree getRight() {
         return this.root.getRight();
+    }
+
+    public int countLevelsRecursive(){
+        if (this.isEmpty())
+            return 0;
+        if (this.isLeaf())
+            return 1;
+        
+        int levelsLeft = 0;
+        int levelsRight = 0;
+        
+        if (this.root.getLeft() != null) 
+            levelsLeft = this.root.getLeft().countLevelsRecursive();
+        
+        if (this.root.getRight() != null) 
+            levelsRight = this.root.getRight().countLevelsRecursive();
+        
+        if(levelsLeft>levelsRight)
+            return levelsLeft+1;
+        return levelsRight+1;
     }
 
     public LinkedList<E> preOrderTraversalRecursive() {
@@ -178,16 +199,39 @@ public class BinaryTree<E> {
             return true;
         }
     }
-    
+
+    //le paso el contenido de donde sea mi ultima pregunta y me retorna el arbol desde esa raiz
+    public BinaryTree<E> iterativeTreeSearch(E content) {
+        Stack<BinaryTree<E>> stack = new Stack<>();
+        if (this.isEmpty()) {
+            return null;
+        }
+
+        stack.push(this);
+        while (!stack.isEmpty()) {
+            BinaryTree<E> subtree = stack.pop();
+            if (subtree.root.getContent().equals(content)) {
+                return subtree;
+            }
+            if (subtree.root.getLeft() != null) {
+                stack.push(subtree.root.getLeft());
+            }
+            if (subtree.root.getRight() != null) {
+                stack.push(subtree.root.getRight());
+            }
+        }
+        return null;
+    }
+
     //debo pasarle el nodo exacto de la ultima pregunta que se haga para poder retornar los posibles animales
     public static void printLeafNodes(BinaryTree<String> node) {
-        
+
         // base case 
         if (node == null) {
             return;
         }
         if (node.getLeft() == null && node.getRight() == null) {
-            System.out.printf( node.getRootContent());
+            System.out.printf(node.getRootContent());
         }
         printLeafNodes(node.root.getLeft());
         printLeafNodes(node.root.getRight());
