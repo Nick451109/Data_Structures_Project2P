@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.proyectoedd.App;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +67,7 @@ public class FilesUploadController implements Initializable {
     }
 
     @FXML
-    private void guardarArchivos(ActionEvent event) {      
+    private void guardarArchivos(ActionEvent event) throws IOException {      
         CopyOption[] options = new CopyOption[]{
             StandardCopyOption.REPLACE_EXISTING,
             StandardCopyOption.COPY_ATTRIBUTES
@@ -79,6 +80,7 @@ public class FilesUploadController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        App.setRoot("VentanaJuego");
 
     }
 

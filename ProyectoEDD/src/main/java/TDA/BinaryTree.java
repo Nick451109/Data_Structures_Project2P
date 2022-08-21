@@ -236,5 +236,25 @@ public class BinaryTree<E> {
         printLeafNodes(node.root.getLeft());
         printLeafNodes(node.root.getRight());
     }
+    
+    public LinkedList<E> getLeafs() {
+        LinkedList<E> traversal = new LinkedList<>();
+        Queue<BinaryTree<E>> q = new LinkedList<>();
+        q.offer(this);
+        while (!q.isEmpty()) {
+            BinaryTree<E> tree = q.poll();
+            if (tree.isLeaf()) {
+                traversal.add(tree.getRootContent());
+            }
+            if (tree.getLeft() != null && !tree.getLeft().isEmpty()) {
+                q.offer(tree.getLeft());
+            }
+            if (tree.getRight() != null && !tree.getRight().isEmpty()) {
+                q.offer(tree.getRight());
+            }
+        }
+        return traversal;
+    }
+    
 
 }
