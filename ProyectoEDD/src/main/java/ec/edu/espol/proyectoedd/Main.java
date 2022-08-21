@@ -27,7 +27,7 @@ public class Main {
         ArrayList<String> preguntas = LecturaDatos.leerPreguntas();
         ArrayList<String> respuestas = LecturaDatos.leerRespuestas();
         BinaryTree<String> arbolJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
-        preguntar(arbolJuego, 3, arbolJuego.countLevelsRecursive());
+        preguntar(arbolJuego, 4, arbolJuego.countLevelsRecursive());
         jugarAgain();
 
     }
