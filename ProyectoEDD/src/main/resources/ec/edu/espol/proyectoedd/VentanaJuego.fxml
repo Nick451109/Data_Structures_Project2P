@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Guessing Game">
          <font>
             <Font name="Lucida Sans Demibold Italic" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="pregActual" layoutX="239.0" layoutY="284.0" text="aqui esta la pregunta " />
-      <Label layoutX="187.0" layoutY="312.0" text="Su respuesta:" />
-      <TextField fx:id="respuestaActual" layoutX="265.0" layoutY="308.0" onKeyPressed="#obtenerRespuesta" />
+      <Label fx:id="pregActual" layoutX="238.0" layoutY="245.0" text="aqui esta la pregunta " />
+      <Label layoutX="187.0" layoutY="280.0" text="Su respuesta:" />
+      <TextField fx:id="respuestaActual" layoutX="265.0" layoutY="276.0" onKeyPressed="#obtenerRespuesta" />
       <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Regresar" />
       <Label layoutX="187.0" layoutY="51.0" text="Limite de preguntas:" />
       <TextField fx:id="numeroPreguntas" layoutX="301.0" layoutY="47.0" prefHeight="25.0" prefWidth="115.0" />
@@ -29,5 +29,7 @@
       </ImageView>
       <Label fx:id="RespuestasFinal" layoutX="291.0" layoutY="183.0" text="Label" />
       <Button fx:id="Reintentar" layoutX="279.0" layoutY="241.0" mnemonicParsing="false" text="Button" visible="false" />
+      <Button fx:id="btYES" layoutX="195.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaSI" prefHeight="26.0" prefWidth="70.0" text="SI" />
+      <Button fx:id="btNo" layoutX="304.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaNO" prefHeight="26.0" prefWidth="70.0" text="NO" />
    </children>
 </AnchorPane>

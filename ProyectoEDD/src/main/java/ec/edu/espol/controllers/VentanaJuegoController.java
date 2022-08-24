@@ -40,8 +40,12 @@ public class VentanaJuegoController implements Initializable {
     private ArrayList<String> respuestas;
     private BinaryTree<String> arbolJuego;
     private String pregunta;
-    private Integer n;
+    private Integer npregDisponibles;
     private Integer tree_levels;
+    @FXML
+    private Button btYES;
+    @FXML
+    private Button btNo;
 
     /**
      * Initializes the controller class.
@@ -57,7 +61,7 @@ public class VentanaJuegoController implements Initializable {
     @FXML
     private void comenzarJuego(MouseEvent event) {
         pregunta = arbolJuego.getRootContent();
-        n = Integer.valueOf(numeroPreguntas.getText());
+        npregDisponibles = Integer.valueOf(numeroPreguntas.getText());
         tree_levels = arbolJuego.countLevelsRecursive();
         tree_levels--;
         pregActual.setText(pregunta);
@@ -83,7 +87,7 @@ public class VentanaJuegoController implements Initializable {
     @FXML
     private void obtenerRespuesta(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            n--;
+            npregDisponibles--;
             String respuesta = respuestaActual.getText();
             respuesta = validarRespuesta(respuesta);
             if (respuesta == null) {
@@ -93,14 +97,14 @@ public class VentanaJuegoController implements Initializable {
                 //---------------------------------------------------
                 //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
                 //funciona con 2 preguntas
-                if (respuesta.toUpperCase().equals("SI") && n == 0 && tree_levels > 1) {
+                if (respuesta.toUpperCase().equals("SI") && npregDisponibles == 0 && tree_levels > 1) {
                     BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
                     System.out.println("No se pudo llegar a una conclusion");
                     System.out.println("Los posibles animales son: ");
                     BinaryTree.printLeafNodes(subarbol.getLeft());
                     RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" +subarbol.getLeft().getLeafs());
                     return;
-                } else if (respuesta.toUpperCase().equals("NO") && n == 0 && tree_levels > 1) {
+                } else if (respuesta.toUpperCase().equals("NO") && npregDisponibles == 0 && tree_levels > 1) {
                     BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
                     System.out.println("No se pudo llegar a una conclusion");
                     System.out.println("Los posibles animales son: ");
@@ -110,16 +114,16 @@ public class VentanaJuegoController implements Initializable {
                 }
                 //-----------------------------------------------------
                 //mientras tenga preguntas y no haya adivinado sigo corriendo el juego
-                if (respuesta.toUpperCase().equals("SI") && n > 0) {
+                if (respuesta.toUpperCase().equals("SI") && npregDisponibles > 0) {
                     arbolJuego = arbolJuego.getLeft();
-                } else if (respuesta.toUpperCase().equals("NO") && n > 0) {
+                } else if (respuesta.toUpperCase().equals("NO") && npregDisponibles > 0) {
                     arbolJuego = arbolJuego.getRight();
                 } //-----------------------------------------------------
                 //cuando no tenga preguntas y haya adivinado el animal
                 //funciona con 3 preguntas
-                else if (respuesta.toUpperCase().equals("NO") && n == 0 && tree_levels == 1) {
+                else if (respuesta.toUpperCase().equals("NO") && npregDisponibles == 0 && tree_levels == 1) {
                     arbolJuego = arbolJuego.getRight();
-                } else if (respuesta.toUpperCase().equals("SI") && n == 0 && tree_levels == 1) {
+                } else if (respuesta.toUpperCase().equals("SI") && npregDisponibles == 0 && tree_levels == 1) {
                     arbolJuego = arbolJuego.getLeft();
                 }
                 pregunta = arbolJuego.getRootContent();
@@ -134,5 +138,33 @@ public class VentanaJuegoController implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    private void respuestaSI(MouseEvent event) {
+        npregDisponibles--;
+        
+        if (npregDisponibles == 0 && tree_levels > 1) {
+            BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
+            System.out.println("No se pudo llegar a una conclusion");
+            System.out.println("Los posibles animales son: ");
+            BinaryTree.printLeafNodes(subarbol.getLeft());
+            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" +subarbol.getLeft().getLeafs());
+            return;
+        
+        }
+    }
+
+    @FXML
+    private void respuestaNO(MouseEvent event) {
+        npregDisponibles--;
+        if (npregDisponibles == 0 && tree_levels > 1) {
+            BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
+            System.out.println("No se pudo llegar a una conclusion");
+            System.out.println("Los posibles animales son: ");
+            BinaryTree.printLeafNodes(subarbol.getRight());
+            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n"+subarbol.getRight().getLeafs());
+            return;
+        }            
     }
 }
