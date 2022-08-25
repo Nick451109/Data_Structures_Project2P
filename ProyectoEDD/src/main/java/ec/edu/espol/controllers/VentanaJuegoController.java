@@ -80,9 +80,11 @@ public class VentanaJuegoController implements Initializable {
         //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
         if (npregDisponibles == 0 && tree_levels > 1) {
             BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
+            System.out.println(arbolJuego);
             Util.imprimirNoHaySolucion();
             BinaryTree.printLeafNodes(subarbol.getLeft());
-            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" +subarbol.getLeft().getLeafs());
+            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" + subarbol.getLeft().getLeafs());
+            System.out.println("\n"+subarbol.getLeft().getLeafs());
             mostrarRespuesta(true);
             return;
         

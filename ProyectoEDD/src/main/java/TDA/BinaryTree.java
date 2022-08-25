@@ -249,12 +249,12 @@ public class BinaryTree<E> {
             if (tree.getLeft() != null && !tree.getLeft().isEmpty()&&!tree.getLeft().getRootContent().equals(" ")) {
                 q.offer(tree.getLeft());
             }
-            if (tree.getRight() != null && !tree.getRight().isEmpty()&&!tree.getLeft().getRootContent().equals(" ")) {
+            if (tree.getRight() != null && !tree.getRight().isEmpty()&&!tree.getRight().getRootContent().equals(" ")) {
                 q.offer(tree.getRight());
             }
         }
         return traversal;
     }
-    
+
 
 }
