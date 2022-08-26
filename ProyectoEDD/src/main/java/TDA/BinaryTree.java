@@ -243,7 +243,7 @@ public class BinaryTree<E> {
 //        stack.push(this);
 //        while (!stack.isEmpty()) {
 //            BinaryTree<E> subtree = stack.pop();
-//            if (subtree.getLeft().getRootContent()) {
+//            if (cmpContent.compare(subtree.getLeft().getRootContent(), content) == 0 || cmpContent.compare(subtree.getRight().getRootContent(), content) == 0 ) {
 //                return subtree;
 //            }
 //            if (subtree.root.getLeft() != null) {
