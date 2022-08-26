@@ -234,27 +234,28 @@ public class BinaryTree<E> {
         return null;
     }
 
-//    public BinaryTree<E> iterativeParentTreeSearch(E content) {
-//        Stack<BinaryTree<E>> stack = new Stack<>();
-//        if (this.isEmpty()) {
-//            return null;
-//        }
-//
-//        stack.push(this);
-//        while (!stack.isEmpty()) {
-//            BinaryTree<E> subtree = stack.pop();
-//            if (cmpContent.compare(subtree.getLeft().getRootContent(), content) == 0 || cmpContent.compare(subtree.getRight().getRootContent(), content) == 0 ) {
-//                return subtree;
-//            }
-//            if (subtree.root.getLeft() != null) {
-//                stack.push(subtree.root.getLeft());
-//            }
-//            if (subtree.root.getRight() != null) {
-//                stack.push(subtree.root.getRight());
-//            }
-//        }
-//        return null;
-//    }
+    public BinaryTree<E> iterativeParentTreeSearch(E content) {
+        Stack<BinaryTree<E>> stack = new Stack<>();
+        if (this.isEmpty() || this.countLevelsRecursive() == 1) {
+            return null;
+        }
+        stack.push(this);
+        while (!stack.isEmpty()) {
+            BinaryTree<E> subtree = stack.pop();
+            System.out.println("este es el subtree que sale");
+            if (cmpContent.compare(subtree.getLeft().getRootContent(), content) == 0 || cmpContent.compare(subtree.getRight().getRootContent(), content) == 0 ) {
+                return subtree;
+            }
+            if (subtree.root.getLeft().getLeft() != null && subtree.root.getLeft().getRight() != null) {
+                stack.push(subtree.root.getLeft());
+            }
+            if (subtree.root.getRight().getLeft() != null && subtree.root.getRight().getRight() != null) {
+                stack.push(subtree.root.getRight());
+            }
+        }
+        return null;
+    }
+    
     //debo pasarle el nodo exacto de la ultima pregunta que se haga para poder retornar los posibles animales
     public static void printLeafNodes(BinaryTree<String> node) {
 

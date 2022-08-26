@@ -41,6 +41,7 @@ public class VentanaJuegoController implements Initializable {
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
     private BinaryTree<String> arbolJuego;
+    private BinaryTree<String> arbolInicialJuego;
     private String pregunta;
     private Integer npregDisponibles;
     private Boolean ultRespuesta;
@@ -62,6 +63,7 @@ public class VentanaJuegoController implements Initializable {
         System.out.println(preguntas);
         System.out.println(respuestas);
         arbolJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
+        arbolInicialJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
         this.ultRespuesta = null;
         // TODO
     }
@@ -184,7 +186,8 @@ public class VentanaJuegoController implements Initializable {
         } else {
             System.out.print("El animal que estas pensando es: " + animal + "\n");
             RespuestasFinal.setText("El animal que estas pensando es: \n"+pregunta);
-
+            CambiarRespuesta.setVisible(true);
+            System.out.println("si se hizo");
         }
     }
     public void validarListaAnimales(LinkedList<String> animales){
@@ -209,15 +212,25 @@ public class VentanaJuegoController implements Initializable {
 
     @FXML
     private void CambiarRespuesta(MouseEvent event) {
+        String respuesta = null;
+        BinaryTree<String> arbolPadre = arbolInicialJuego.iterativeParentTreeSearch(arbolJuego.getRootContent());
         if(ultRespuesta){
-            if(arbolJuego.isLeaf()){                
-            }            
+            if (arbolPadre.getRight().getRootContent().equals(" ") || arbolPadre.getRight().getRootContent() == null){
+                respuesta = "ninguna";
+            }else{
+                respuesta = arbolPadre.getRight().getRootContent();
+            }
+            RespuestasFinal.setText("Si hubieras respondido diferente la ultima pregunta\n la respuesta hubiera sido: \n" +respuesta);
         }else if(!ultRespuesta){
-            
+            if (arbolPadre.getLeft().getRootContent().equals(" ") || arbolPadre.getLeft().getRootContent() == null){
+                respuesta = "ninguna";
+            }else{
+                respuesta = arbolPadre.getLeft().getRootContent();
+            }
+            RespuestasFinal.setText("Si hubieras respondido diferente la ultima pregunta\n la respuesta hubiera sido: \n" +respuesta);
         }
+        CambiarRespuesta.setVisible(false);
     }
-
-
 
 
 }

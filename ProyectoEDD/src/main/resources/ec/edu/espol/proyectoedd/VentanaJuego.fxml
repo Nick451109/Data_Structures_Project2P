@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="imagenFondo" stylesheets="@../../../../styles/ventanaprincipal.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="imagenFondo" stylesheets="@../../../../styles/ventanaprincipal.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
    <children>
       <Label id="labels" layoutX="14.0" layoutY="14.0" text="Guessing Game">
          <font>
@@ -20,8 +20,8 @@
       <Button layoutX="265.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#comenzarJuego" text="Empezar" />
       <Label id="labels" fx:id="RespuestasFinal" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="145.0" prefHeight="99.0" prefWidth="416.0" text="Label" textAlignment="CENTER" visible="false" />
       <Button fx:id="Reintentar" layoutX="254.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#JugarDeNuevo" prefHeight="26.0" prefWidth="126.0" text="Jugar de Nuevo" visible="false" />
+      <Button fx:id="CambiarRespuesta" layoutX="261.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#CambiarRespuesta" prefHeight="26.0" prefWidth="115.0" text="Cambiar Respuesta" visible="false" />
       <Button fx:id="btYES" layoutX="219.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaSI" prefHeight="26.0" prefWidth="70.0" text="SI" visible="false" />
       <Button fx:id="btNo" layoutX="334.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaNO" prefHeight="26.0" prefWidth="70.0" text="NO" visible="false" />
-      <Button fx:id="CambiarRespuesta" layoutX="279.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#CambiarRespuesta" prefHeight="26.0" prefWidth="90.0" text="CambiarRespuesta" visible="false" />
    </children>
 </AnchorPane>
