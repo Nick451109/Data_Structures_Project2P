@@ -70,6 +70,8 @@ public class VentanaJuegoController implements Initializable {
     private void comenzarJuego(MouseEvent event) {
         if(numeroPreguntas.getText().isBlank()){
             Util.crearAlerta("ERROR", "No se ha ingresado el numero de preguntas");
+        }else if(!numeroPreguntas.getText().matches(".*[0-20].*")){
+            Util.crearAlerta("ERROR", "Se debe de ingresar un numero");
         }else{
             pregunta = arbolJuego.getRootContent();
             npregDisponibles = Integer.valueOf(numeroPreguntas.getText());
@@ -169,6 +171,7 @@ public class VentanaJuegoController implements Initializable {
             Util.crearAlerta("Comando Invalido", "Cantidad máxima de preguntas: " + (tree_levels -1) );
         }
     }
+    
     public  void validarAnimal(String animal) {
         if (animal.equals(" ")) {
             System.out.print("\nSe ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
