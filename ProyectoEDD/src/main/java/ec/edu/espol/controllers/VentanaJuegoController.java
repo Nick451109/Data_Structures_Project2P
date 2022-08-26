@@ -173,7 +173,7 @@ public class VentanaJuegoController implements Initializable {
     
     
     public boolean excedeNumeroPreguntas(){
-        if(tree_levels-1<npregDisponibles){
+        if(tree_levels-1<npregDisponibles||npregDisponibles<=0){
             Util.crearAlerta("Comando Invalido", "Cantidad máxima de preguntas: " + (tree_levels -1) );
             return true;
         }return false;
