@@ -2,11 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="imagenFondo" stylesheets="@../../../../styles/ventanaprincipal.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="imagenFondo" stylesheets="@../../../../styles/ventanaprincipal.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaJuegoController">
    <children>
       <Label id="labels" layoutX="14.0" layoutY="14.0" text="Guessing Game">
          <font>
@@ -17,11 +18,14 @@
       <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#regresar" text="Regresar" />
       <Label id="labels" layoutX="166.0" layoutY="64.0" text="Limite de preguntas:" />
       <TextField fx:id="numeroPreguntas" layoutX="295.0" layoutY="60.0" prefHeight="25.0" prefWidth="115.0" />
-      <Button layoutX="265.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#comenzarJuego" text="Empezar" />
+      <Button fx:id="empezar" layoutX="265.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#comenzarJuego" text="Empezar" />
       <Label id="labels" fx:id="RespuestasFinal" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="145.0" prefHeight="99.0" prefWidth="416.0" text="Label" textAlignment="CENTER" visible="false" />
-      <Button fx:id="Reintentar" layoutX="254.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#JugarDeNuevo" prefHeight="26.0" prefWidth="126.0" text="Jugar de Nuevo" visible="false" />
-      <Button fx:id="CambiarRespuesta" layoutX="261.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#CambiarRespuesta" prefHeight="26.0" prefWidth="115.0" text="Cambiar Respuesta" visible="false" />
+      <Button fx:id="Reintentar" layoutX="250.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#JugarDeNuevo" prefHeight="26.0" prefWidth="126.0" text="Jugar de Nuevo" visible="false" />
+      <Button fx:id="CambiarRespuesta" layoutX="238.0" layoutY="322.0" mnemonicParsing="false" onMouseClicked="#CambiarRespuesta" prefHeight="26.0" prefWidth="150.0" text="Cambiar Respuesta" visible="false" />
       <Button fx:id="btYES" layoutX="219.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaSI" prefHeight="26.0" prefWidth="70.0" text="SI" visible="false" />
       <Button fx:id="btNo" layoutX="334.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#respuestaNO" prefHeight="26.0" prefWidth="70.0" text="NO" visible="false" />
+      <RadioButton fx:id="agregarAnimalRB" layoutX="181.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#agregarAnimal" text="Añadir Animal" visible="false" />
+      <TextField fx:id="agregarAnimalTF" disable="true" layoutX="317.0" layoutY="219.0" visible="false" />
+      <Button fx:id="btGuardarNuevoA" layoutX="272.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#guardarNuevoAnimal" prefHeight="18.0" prefWidth="78.0" text="Guardar" visible="false" />
    </children>
 </AnchorPane>

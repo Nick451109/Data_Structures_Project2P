@@ -13,11 +13,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -52,6 +54,16 @@ public class VentanaJuegoController implements Initializable {
     private Button btNo;
     @FXML
     private Button CambiarRespuesta;
+    @FXML
+    private Button empezar;
+    @FXML
+    private RadioButton agregarAnimalRB;
+    @FXML
+    private TextField agregarAnimalTF;
+    @FXML
+    private Button btGuardarNuevoA;
+    private Queue<String> qrespuestas;
+
 
     /**
      * Initializes the controller class.
@@ -65,11 +77,13 @@ public class VentanaJuegoController implements Initializable {
         arbolJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
         arbolInicialJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
         this.ultRespuesta = null;
+        qrespuestas = new LinkedList<>();
         // TODO
     }
 
     @FXML
     private void comenzarJuego(MouseEvent event) {
+  //      empezar.setVisible(false);
         if(numeroPreguntas.getText().isBlank()){
             Util.crearAlerta("ERROR", "No se ha ingresado el numero de preguntas");
             return;
@@ -90,6 +104,7 @@ public class VentanaJuegoController implements Initializable {
 
     @FXML
     private void respuestaSI(MouseEvent event) {
+        qrespuestas.offer("SI");
         this.ultRespuesta = true;
         actualizarVariables();
         //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
@@ -125,6 +140,7 @@ public class VentanaJuegoController implements Initializable {
 
     @FXML
     private void respuestaNO(MouseEvent event) {
+        qrespuestas.offer("NO");
         this.ultRespuesta = false;
         actualizarVariables();
         //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
@@ -183,6 +199,7 @@ public class VentanaJuegoController implements Initializable {
         if (animal.equals(" ")) {
             System.out.print("\nSe ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
             RespuestasFinal.setText("Se ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
+            habilitarAgregarAnimal(true);//FUNCIONALIDAD EXTRA
         } else {
             System.out.print("El animal que estas pensando es: " + animal + "\n");
             RespuestasFinal.setText("El animal que estas pensando es: \n"+pregunta);
@@ -193,6 +210,7 @@ public class VentanaJuegoController implements Initializable {
     public void validarListaAnimales(LinkedList<String> animales){
         if(animales.size()==0){
             RespuestasFinal.setText("Se ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
+            habilitarAgregarAnimal(true);//FUNCIONALIDAD EXTRA
         }else if(animales.size()==1){
             RespuestasFinal.setText("El animal que estas pensando es: \n"+animales.toString());
         }else{
@@ -203,6 +221,12 @@ public class VentanaJuegoController implements Initializable {
         btYES.setVisible(b);
         btNo.setVisible(b);
         pregActual.setVisible(b);
+    }
+    //FUNCIONALIDAD EXTRA
+    public void habilitarAgregarAnimal(boolean b){           
+            agregarAnimalRB.setVisible(b);
+            agregarAnimalTF.setVisible(b);
+            btGuardarNuevoA.setVisible(b);
     }
     public void mostrarRespuesta(Boolean b){
         RespuestasFinal.setVisible(b);
@@ -230,6 +254,28 @@ public class VentanaJuegoController implements Initializable {
             RespuestasFinal.setText("Si hubieras respondido diferente la ultima pregunta\n la respuesta hubiera sido: \n" +respuesta);
         }
         CambiarRespuesta.setVisible(false);
+    }
+
+    @FXML
+    private void agregarAnimal(MouseEvent event) {
+        agregarAnimalTF.setDisable(false);
+
+    }
+
+    @FXML
+    private void guardarNuevoAnimal(MouseEvent event) {
+                if(!agregarAnimalTF.getText().isBlank()){
+            Util.crearAlerta("CONFIRMACION", "Se ha guardado el animal: "+agregarAnimalTF.getText() );
+            String nuevaRespuesta = agregarAnimalTF.getText();
+            for(String resp: qrespuestas){
+                nuevaRespuesta = nuevaRespuesta+ " " + resp;
+            }
+            System.out.print(nuevaRespuesta);
+            LecturaDatos.saveRespuesta("Respuestas.txt", nuevaRespuesta);
+        }else{
+            Util.crearAlerta("ERROR", "No se ha guardado el animal" );
+
+        }
     }
 
 

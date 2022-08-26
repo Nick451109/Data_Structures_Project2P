@@ -5,7 +5,9 @@
 package CargaDatos;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -44,5 +46,16 @@ public class LecturaDatos {
             ex.printStackTrace();
         }
         return respuestasTxt;
+    }
+        public static void saveRespuesta(String nomfile, String respuesta) {
+        System.out.print("Ingreso al saveRespuesta");
+        StringBuilder sb = new StringBuilder();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nomfile, true))) {
+            //id, descripcion, lugar, personas,fecha,album, comentarios,reacciones
+            sb.append(respuesta).append(System.getProperty("line.separator"));
+            bw.write(sb.toString());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }

@@ -2,4 +2,5 @@ Oso SI SI SI
 Lechuza NO SI NO
 Venado SI NO SI
 Paloma NO NO NO
-Ballena SI SI NO
+Ballena SI SI NOcamaleon NO NO SI
+camaleon NO NO SI
