@@ -42,6 +42,8 @@ public class FilesUploadController implements Initializable {
    
     private Path rutaArchivoPreg;
     private Path rutaArchivoResp;
+    @FXML
+    private Button btGuardar1;
     
 
     /**
@@ -96,5 +98,10 @@ public class FilesUploadController implements Initializable {
             return file; 
          }
         return null;
+    }
+
+    @FXML
+    private void RegresarVista(ActionEvent event) throws IOException {
+        App.setRoot("ventanaPrincipal");
     }
 }

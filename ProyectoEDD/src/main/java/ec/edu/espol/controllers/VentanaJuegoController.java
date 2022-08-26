@@ -43,11 +43,14 @@ public class VentanaJuegoController implements Initializable {
     private BinaryTree<String> arbolJuego;
     private String pregunta;
     private Integer npregDisponibles;
+    private Boolean ultRespuesta;
     private Integer tree_levels;
     @FXML
     private Button btYES;
     @FXML
     private Button btNo;
+    @FXML
+    private Button CambiarRespuesta;
 
     /**
      * Initializes the controller class.
@@ -56,7 +59,10 @@ public class VentanaJuegoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         preguntas = LecturaDatos.leerPreguntas();
         respuestas = LecturaDatos.leerRespuestas();
+        System.out.println(preguntas);
+        System.out.println(respuestas);
         arbolJuego = CreadorArboles.creadorArboles(preguntas, respuestas);
+        this.ultRespuesta = null;
         // TODO
     }
 
@@ -76,6 +82,7 @@ public class VentanaJuegoController implements Initializable {
 
     @FXML
     private void respuestaSI(MouseEvent event) {
+        this.ultRespuesta = true;
         actualizarVariables();
         //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
         if (npregDisponibles == 0 && tree_levels > 1) {
@@ -83,8 +90,8 @@ public class VentanaJuegoController implements Initializable {
             System.out.println(arbolJuego);
             Util.imprimirNoHaySolucion();
             BinaryTree.printLeafNodes(subarbol.getLeft());
-            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" + subarbol.getLeft().getLeafs());
-            System.out.println("\n"+subarbol.getLeft().getLeafs());
+            RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" + subarbol.getLeft().getLeafs(" "));
+            System.out.println("\n"+subarbol.getLeft().getLeafs(" "));
             mostrarRespuesta(true);
             return;
         
@@ -110,13 +117,14 @@ public class VentanaJuegoController implements Initializable {
 
     @FXML
     private void respuestaNO(MouseEvent event) {
+        this.ultRespuesta = false;
         actualizarVariables();
         //cuando me quede sin preguntas y no pueda adivinar con certeza un animal
         if (npregDisponibles == 0 && tree_levels > 1) {
             BinaryTree<String> subarbol = arbolJuego.iterativeTreeSearch(pregunta);
             Util.imprimirNoHaySolucion();
             BinaryTree.printLeafNodes(subarbol.getRight());
-            LinkedList<String> leafNodes= subarbol.getRight().getLeafs();
+            LinkedList<String> leafNodes= subarbol.getRight().getLeafs(" ");
             validarListaAnimales(leafNodes);
             mostrarRespuesta(true);
             return;
@@ -189,6 +197,18 @@ public class VentanaJuegoController implements Initializable {
         RespuestasFinal.setVisible(b);
         habilitarbotonesJuego(!b);
         Reintentar.setVisible(true);
+    }
+
+    @FXML
+    private void CambiarRespuesta(MouseEvent event) {
+        if(ultRespuesta){
+            if(arbolJuego.isLeaf()){
+                
+            }
+            
+        }else if(!ultRespuesta){
+            
+        }
     }
 
 

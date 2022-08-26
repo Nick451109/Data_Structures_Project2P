@@ -16,9 +16,15 @@ import java.util.Stack;
 public class BinaryTree<E> {
 
     private BinaryTreeNode<E> root;
+    private Comparator<E> cmpContent;
 
-    public BinaryTree(E rootContent) {
+//    public BinaryTree(E rootContent) {
+//        this.root = new BinaryTreeNode<>(rootContent);
+//    }
+
+    public BinaryTree(E rootContent, Comparator<E> cmpContent) {
         this.root = new BinaryTreeNode<>(rootContent);
+        this.cmpContent = cmpContent;
     }
 
     public E getRootContent() {
@@ -49,40 +55,45 @@ public class BinaryTree<E> {
         this.root = root;
     }
 
-    public void setLeft(BinaryTree tree) {
+    public void setLeft(BinaryTree<E> tree) {
         this.root.setLeft(tree);
     }
 
-    public void setRight(BinaryTree tree) {
+    public void setRight(BinaryTree<E> tree) {
         this.root.setRight(tree);
     }
 
-    public BinaryTree getLeft() {
+    public BinaryTree<E> getLeft() {
         return this.root.getLeft();
     }
 
-    public BinaryTree getRight() {
+    public BinaryTree<E> getRight() {
         return this.root.getRight();
     }
 
-    public int countLevelsRecursive(){
-        if (this.isEmpty())
+    public int countLevelsRecursive() {
+        if (this.isEmpty()) {
             return 0;
-        if (this.isLeaf())
+        }
+        if (this.isLeaf()) {
             return 1;
-        
+        }
+
         int levelsLeft = 0;
         int levelsRight = 0;
-        
-        if (this.root.getLeft() != null) 
+
+        if (this.root.getLeft() != null) {
             levelsLeft = this.root.getLeft().countLevelsRecursive();
-        
-        if (this.root.getRight() != null) 
+        }
+
+        if (this.root.getRight() != null) {
             levelsRight = this.root.getRight().countLevelsRecursive();
-        
-        if(levelsLeft>levelsRight)
-            return levelsLeft+1;
-        return levelsRight+1;
+        }
+
+        if (levelsLeft > levelsRight) {
+            return levelsLeft + 1;
+        }
+        return levelsRight + 1;
     }
 
     public LinkedList<E> preOrderTraversalRecursive() {
@@ -157,8 +168,8 @@ public class BinaryTree<E> {
 
     public void setLeaves(E contenido) {
         if (this.isLeaf()) {
-            this.setRight(new BinaryTree(contenido));
-            this.setLeft(new BinaryTree(contenido));
+            this.setRight(new BinaryTree(contenido,cmpContent));
+            this.setLeft(new BinaryTree(contenido,cmpContent));
             return;
         }
         if (this.getLeft() != null) {
@@ -171,8 +182,8 @@ public class BinaryTree<E> {
 
     public void setAnswer(E contenido) {
         if (this.isLeaf()) {
-            this.setRight(new BinaryTree(contenido));
-            this.setLeft(new BinaryTree(contenido));
+            this.setRight(new BinaryTree(contenido,cmpContent));
+            this.setLeft(new BinaryTree(contenido,cmpContent));
             return;
         }
         if (this.getLeft() != null) {
@@ -188,9 +199,9 @@ public class BinaryTree<E> {
             return false;
         } else {
             E resptActual = respuestas.poll();
-            if (resptActual.equals(positivo)) {
+            if (cmpContent.compare(resptActual,positivo) == 0) { //cmpContent.compare(resptActual,positivo) == 0
                 this.getLeft().recursiveSet(respuestas, positivo, negativo);
-            } else if (resptActual.equals(negativo)) {
+            } else if ((cmpContent.compare(resptActual, negativo) == 0)) {
                 this.getRight().recursiveSet(respuestas, positivo, negativo);
             } else {
                 this.setRootContent(resptActual);
@@ -210,7 +221,7 @@ public class BinaryTree<E> {
         stack.push(this);
         while (!stack.isEmpty()) {
             BinaryTree<E> subtree = stack.pop();
-            if (subtree.root.getContent().equals(content)) {
+            if (cmpContent.compare(subtree.root.getContent(), content) == 0) { //cmpContent.compare(subtree.root.getContent(),content) == 0
                 return subtree;
             }
             if (subtree.root.getLeft() != null) {
@@ -223,6 +234,27 @@ public class BinaryTree<E> {
         return null;
     }
 
+//    public BinaryTree<E> iterativeParentTreeSearch(E content) {
+//        Stack<BinaryTree<E>> stack = new Stack<>();
+//        if (this.isEmpty()) {
+//            return null;
+//        }
+//
+//        stack.push(this);
+//        while (!stack.isEmpty()) {
+//            BinaryTree<E> subtree = stack.pop();
+//            if (subtree.getLeft().getRootContent()) {
+//                return subtree;
+//            }
+//            if (subtree.root.getLeft() != null) {
+//                stack.push(subtree.root.getLeft());
+//            }
+//            if (subtree.root.getRight() != null) {
+//                stack.push(subtree.root.getRight());
+//            }
+//        }
+//        return null;
+//    }
     //debo pasarle el nodo exacto de la ultima pregunta que se haga para poder retornar los posibles animales
     public static void printLeafNodes(BinaryTree<String> node) {
 
@@ -236,8 +268,8 @@ public class BinaryTree<E> {
         printLeafNodes(node.root.getLeft());
         printLeafNodes(node.root.getRight());
     }
-    
-    public LinkedList<E> getLeafs() {
+
+    public LinkedList<E> getLeafs(E content) { //a ver si se resuelve lo de los espacios 
         LinkedList<E> traversal = new LinkedList<>();
         Queue<BinaryTree<E>> q = new LinkedList<>();
         q.offer(this);
@@ -246,15 +278,14 @@ public class BinaryTree<E> {
             if (tree.isLeaf()) {
                 traversal.add(tree.getRootContent());
             }
-            if (tree.getLeft() != null && !tree.getLeft().isEmpty()&&!tree.getLeft().getRootContent().equals(" ")) {
+            if (tree.getLeft() != null && !tree.getLeft().isEmpty() && !(cmpContent.compare(tree.getLeft().getRootContent(), content) == 0)) { //cmpContent.compare(tree.getLeft().getRootContent()," ") == 0
                 q.offer(tree.getLeft());
             }
-            if (tree.getRight() != null && !tree.getRight().isEmpty()&&!tree.getRight().getRootContent().equals(" ")) {
+            if (tree.getRight() != null && !tree.getRight().isEmpty() && !(cmpContent.compare(tree.getRight().getRootContent(), content) == 0)) {
                 q.offer(tree.getRight());
             }
         }
         return traversal;
     }
-
 
 }
