@@ -175,7 +175,7 @@ public class VentanaJuegoController implements Initializable {
             RespuestasFinal.setText("Se ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
         } else {
             System.out.print("El animal que estas pensando es: " + animal + "\n");
-            RespuestasFinal.setText(pregunta);
+            RespuestasFinal.setText("El animal que estas pensando es: \n"+pregunta);
 
         }
     }
@@ -183,7 +183,7 @@ public class VentanaJuegoController implements Initializable {
         if(animales.size()==0){
             RespuestasFinal.setText("Se ha llegado al limite de preguntas.\nNo se ha encontrado un animal con esas caracteristicas\n");
         }else if(animales.size()==1){
-            RespuestasFinal.setText(animales.toString());
+            RespuestasFinal.setText("El animal que estas pensando es: \n"+animales.toString());
         }else{
             RespuestasFinal.setText("No se pudo llegar a una conclusion \n Los posibles animales son: \n" +animales.toString());
         }
@@ -202,10 +202,8 @@ public class VentanaJuegoController implements Initializable {
     @FXML
     private void CambiarRespuesta(MouseEvent event) {
         if(ultRespuesta){
-            if(arbolJuego.isLeaf()){
-                
-            }
-            
+            if(arbolJuego.isLeaf()){                
+            }            
         }else if(!ultRespuesta){
             
         }
