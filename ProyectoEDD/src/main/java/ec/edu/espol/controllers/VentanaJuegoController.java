@@ -70,16 +70,20 @@ public class VentanaJuegoController implements Initializable {
     private void comenzarJuego(MouseEvent event) {
         if(numeroPreguntas.getText().isBlank()){
             Util.crearAlerta("ERROR", "No se ha ingresado el numero de preguntas");
-        }else if(!numeroPreguntas.getText().matches(".*[0-20].*")){
+            return;
+        }else if(!numeroPreguntas.getText().matches(".*[0-9].*")){
             Util.crearAlerta("ERROR", "Se debe de ingresar un numero");
-        }else{
-            pregunta = arbolJuego.getRootContent();
-            npregDisponibles = Integer.valueOf(numeroPreguntas.getText());
-            tree_levels = arbolJuego.countLevelsRecursive();
-            validarCantidadPreguntas();
-            pregActual.setText(pregunta);
-            habilitarbotonesJuego(true);
-        }       
+            return;
+        }
+        pregunta = arbolJuego.getRootContent();
+        npregDisponibles = Integer.valueOf(numeroPreguntas.getText());
+        tree_levels = arbolJuego.countLevelsRecursive();
+        if(excedeNumeroPreguntas()){
+            return;
+        }
+        pregActual.setText(pregunta);
+        habilitarbotonesJuego(true);
+              
     }
 
     @FXML
@@ -166,10 +170,11 @@ public class VentanaJuegoController implements Initializable {
     }
     
     
-    public void validarCantidadPreguntas(){
+    public boolean excedeNumeroPreguntas(){
         if(tree_levels-1<npregDisponibles){
             Util.crearAlerta("Comando Invalido", "Cantidad máxima de preguntas: " + (tree_levels -1) );
-        }
+            return true;
+        }return false;
     }
     
     public  void validarAnimal(String animal) {
